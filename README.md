@@ -12,7 +12,7 @@ This plugin provides AWS Device Farm functionality from your own Jenkins CI serv
 It also provides the device state details specification if the checkboxs are checked. Otherwise, the default settings will be used:
 ![device-state-specification](https://raw.github.com/awslabs/aws-device-farm-jenkins-plugin/master/ext/device-state-specification.png)
 
-It also can pull down all of the test artifacts (logs, screenshots, etc.) locally: 
+It also can pull down all of the test artifacts (logs, screenshots, etc.) locally:
 
 ![build-artifacts](https://raw.github.com/awslabs/aws-device-farm-jenkins-plugin/master/ext/build-artifacts.png)
 
@@ -103,7 +103,26 @@ Usage
 13. Set the execution configuration parameters: video recording and app performance monitoring.
 14. Click “Save”.
 
+## Using the plugin in Jenkins Pipeline
+
+Just call the plugin like the example bellow or use Snippet Generator.
+```groovy
+step([$class: 'AWSDeviceFarmRecorder',
+    projectName: 'MyProj',
+    devicePoolName: 'My pool',
+    runName: 'jenkins-functional-tests-${BUILD_ID}',
+    appArtifact: 'app/build/outputs/apk/app-release.apk',
+    testToRun: 'APPIUM_JAVA_JUNIT',
+    appiumJavaJUnitTest: '**/zip-with-dependencies.zip',
+    junitArtifact: '',
+    junitFilter: '',
+    ignoreRunError: false,
+    isRunUnmetered: false,
+    storeResults: true,
+])
+```
+
 Dependencies
 ============
-
 * AWS SDK 1.11.126 or later.
+
